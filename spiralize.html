@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <script type='text/javascript'>
+          var Index = function(max) {
+            var value = 0;
+            var test;
+            var forward = true;
+            var max;
+            this.next = function(tab) {
+              forward ? value ++ : value --;
+              if (tab || value <=0 || value >= max-1 ) {
+                forward = !forward;
+                return true;
+            }
+            return false;
+            };
+            this.value = function() {
+              test = value;
+              return value;
+            };
+            this.testing = function(x) {
+              test = forward ? value + x : (value - x < 0 ? max : value - x);
+            };
+            this.test = function() {
+              return test;
+            };
+          };
+
+          var spiralize = function(n) {
+            var matrix = [];
+            console.log(matrix.length);
+            for (var i = 0; i < n; i++) { 
+              matrix[matrix.length]=new Array(n);
+            }
+            for (var i = 0; i < n; i++) {
+              for(var j = 0; j < n; j++) {
+                matrix[i][j] = 0;
+            }}
+            var x = new Index(n);
+            var y = new Index(n);
+            var increment = x;
+            while (true) {
+              console.log(y.value(), x.value());
+              console.log(matrix);
+              matrix[y.value()][x.value()] = 1;
+              var tab = increment.next((increment.testing(3)) && ( !matrix[y.test()].is && matrix[y.test()][x.test()] == 1));
+              if (tab && last_tab) { break; }
+              var last_tab = tab;
+              if (tab) { increment = increment.value() && increment == x ? y : x }
+              if (increment.testing(2) && ( matrix[y.test()] && matrix[y.test()][x.test()] == 1)) { break; }
+            }
+            matrix[y.value()][x.value()] = 1;
+            console.log(matrix);
+            return matrix;
+          };
+
+          console.log(new Array(n));
+          spiralize(5);
+</script>
+    </body>
+</html>
+
